@@ -67,10 +67,7 @@ main()
   if ! builder_setup_cache; then
     warn 'Compiler caching could not be enabled'
   fi
-  (disable_parallelism && disable_cppflags &&
-    build_js 'js' \
-      "$stdarg --host='$build_arch'") &&
-  \
+
   builder_remove_static_libraries 'js' &&
   \
   (disable_stack_protector &&
