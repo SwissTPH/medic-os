@@ -67,7 +67,12 @@ main()
   if ! builder_setup_cache; then
     warn 'Compiler caching could not be enabled'
   fi
-
+  (disable_parallelism && disable_cppflags &&
+    build_js 'js' \
+      "$stdarg --host='$build_arch' --with-cpu-arch='$build_cpu'") &&
+  \
+  builder_remove_static_libraries 'js' &&
+  \
   (disable_stack_protector &&
     build_autoconf 'pv' "$stdarg") &&
   \
@@ -104,12 +109,6 @@ main()
       "$stdarg --shared-zlib --shared-openssl \
        --shared-openssl-libpath='$prefix/lib' \
        --shared-openssl-includes='$prefix/include'") &&
-  \
-  (disable_parallelism && disable_cppflags &&
-    build_autoconf 'js' \
-      "$stdarg --host='$build_arch' --with-cpu-arch='$build_cpu'") &&
-  \
-  builder_remove_static_libraries 'js' &&
   \
   build_autoconf 'erlang' \
     "$stdarg $build_extra_options --enable-kernel-poll \

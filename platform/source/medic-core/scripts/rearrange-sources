@@ -48,10 +48,8 @@ symlink()
   \
   for dir in logs stats images; do
     ln -sf "../$dir" "$dir";
-  done &&
-  \
-  local js_target="`readlink js`" && \
-  rm -f js && ln -sf "$js_target/js/src" js
+  done
+  
 }
 
 apply_patches()
@@ -60,8 +58,9 @@ apply_patches()
     < ../../patches/couchdb2-dependency-prefix.diff) &&
   (cd erlang && patch -s -p1 \
     < ../../patches/erlang-r17-pcre-fix.diff) &&
-  (cd js && patch -s -p1 \
-    < ../../../../patches/js-fix-makefile-loop.diff)
+  (  local js_target="`readlink firefox`" && \
+  rm -f firefox && ln -sf "$js_target/js/src" js)
+
 }
 
 enforce_minimum_size()

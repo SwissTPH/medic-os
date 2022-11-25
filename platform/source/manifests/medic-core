@@ -1,11 +1,11 @@
 couchdb, https://www.apache.org/dist/couchdb/source/2.3.1/apache-couchdb-2.3.1.tar.gz
-erlang, http://erlang.org/download/otp_src_19.3.tar.gz
-js, https://ftp.mozilla.org/pub/mozilla.org/js/js185-1.0.0.tar.gz
+erlang, http://erlang.org/download/otp_src_25.1.tar.gz
+js, https://ftp.mozilla.org/pub/firefox/releases/91.0esr/source/firefox-91.0esr.source.tar.xz
 logrotate, https://github.com/logrotate/logrotate/releases/download/3.13.0/logrotate-3.13.0.tar.xz
 nginx, https://nginx.org/download/nginx-1.13.6.tar.gz
 node, https://nodejs.org/dist/v8.11.4/node-v8.11.4.tar.gz
-openssh, https://mirrors.sonic.net/pub/OpenBSD/OpenSSH/portable/openssh-7.7p1.tar.gz
-openssl, https://www.openssl.org/source/openssl-1.0.2p.tar.gz
+openssh, https://mirrors.sonic.net/pub/OpenBSD/OpenSSH/portable/openssh-9.1p1.tar.gz
+openssl, https://www.openssl.org/source/openssl-1.1.1s.tar.gz
 paxctl, https://pax.grsecurity.net/paxctl-0.9.tar.gz
 pv, https://www.ivarch.com/programs/sources/pv-1.6.0.tar.bz2
 rebar, https://github.com/rebar/rebar.git

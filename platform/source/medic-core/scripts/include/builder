@@ -450,6 +450,24 @@ build_couchdb()
     chown -R root:root "$prefix/couchdb") 2>&1 | log "$name"
 }
 
+build_js()
+{
+  local name="$1"
+  local configure_args="$2"
+  local make_args="$3"
+  local make_install_args="$4"
+
+  builder_should_run "$name" || return 0
+
+  (cd "$name" && cp ./configure.in ./configure && chmod +x ./configure \
+    && sh -c "./configure $configure_args" \
+    && sh -c "$MAKE $make_args" \
+    && sh -c "$MAKE install $make_install_args") 2>&1 | log "$name"
+
+  builder_check_status "$name" "${PIPESTATUS[0]}"
+}
+
+
 build_rebar()
 {
   local name="$1"

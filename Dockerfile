@@ -1,3 +1,14 @@
+FROM ubuntu:16.04
+
+#    sed -i 's|rebar/rebar|erlang/rebar3|g'  /medic-os/platform/source/manifests/medic-core && \
+
+COPY ./ /medic-os/
+
+
+RUN  apt-get update  && DEBIAN_FRONTEND="noninteractive" TZ="Etc/UTC" /medic-os/platform/config/debian/scripts/prepare-system -y
+
+RUN   cd medic-os && make
+    
 
 FROM ubuntu:16.04
 MAINTAINER Medic Mobile
@@ -24,8 +35,9 @@ RUN useradd -rd /var/empty -c 'Service - Avahi' -g avahi avahi && \
     useradd -rd /var/empty -c 'Service - Secure Shell' -g sshd sshd && \
     useradd -rd /home/vm -c 'Legacy - VM Login' -g vm -s /bin/bash vm
 
-ADD platform/staging/docker/x64/medic-os-*-docker /
+COPY --from=0  /medic-os/platform/staging/docker/x64/medic-os-*-docker /
 
 VOLUME [ "/srv" ]
 ENTRYPOINT [ "/bin/bash", "-l", "/boot/container-start", "/" ]
+
 
