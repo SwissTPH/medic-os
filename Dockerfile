@@ -1,16 +1,15 @@
-FROM ubuntu:16.04
+FROM ubuntu:22.04
 
 #    sed -i 's|rebar/rebar|erlang/rebar3|g'  /medic-os/platform/source/manifests/medic-core && \
 
-COPY ./ /medic-os/
+ADD  https://github.com/SwissTPH/medic-os/archive/refs/heads/main.tar.gz /main.tar.gz
 
+RUN  tar -xvf /main.tar.gz  && mv  /medic-os-main /medic-os && apt-get update  && DEBIAN_FRONTEND="noninteractive" TZ="Etc/UTC" /medic-os/platform/config/debian/scripts/prepare-system -y
 
-RUN  apt-get update  && DEBIAN_FRONTEND="noninteractive" TZ="Etc/UTC" /medic-os/platform/config/debian/scripts/prepare-system -y
-
-RUN   cd medic-os && make
+RUN cd medic-os && make
     
 
-FROM ubuntu:16.04
+FROM ubuntu:22.04
 MAINTAINER Medic Mobile
 
 RUN mkdir -p /var/empty
@@ -24,7 +23,10 @@ RUN apt-get -q=2 -y install \
      acl apt-utils attr bzip2 busybox curl daemontools diffutils \
      gawk git isc-dhcp-client less man inotify-tools jq libreadline6 \
      libpcre3 libpopt0 lrzip nano net-tools patch psmisc rsync screen \
-     strace sudo unattended-upgrades vim xdelta xz-utils xsltproc
+     strace sudo unattended-upgrades vim xdelta xz-utils xsltproc  \
+     mozjs* libnet-amazon-s3-tools-perl
+
+#    rebar mozjs* erlang logrotate nodejs openssh* openssl* paxctl pv
 
 RUN groupadd avahi && groupadd couchdb && groupadd nobody && \
     groupadd postgresql && groupadd sshd && groupadd vm

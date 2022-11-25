@@ -69,7 +69,7 @@ main()
   fi
   (disable_parallelism && disable_cppflags &&
     build_js 'js' \
-      "$stdarg --host='$build_arch' --with-cpu-arch='$build_cpu'") &&
+      "$stdarg --host='$build_arch'") &&
   \
   builder_remove_static_libraries 'js' &&
   \
